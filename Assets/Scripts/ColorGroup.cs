@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ColorGroup : MonoBehaviour
 {
-    [SerializeField] List<BlockColor> blockColorList = new List<BlockColor>();
+    [SerializeField] protected List<BlockColor> blockColorList = new List<BlockColor>();
 }
