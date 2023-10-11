@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using CuteEngine.Utilities;
 
 public enum BlockColorType
 {
@@ -12,7 +12,7 @@ public enum BlockColorType
     Blue,
     Orange,
     Magenta,
-    Pink,
+    Green,
 }
 
 public enum BlockType
@@ -31,11 +31,18 @@ public enum AnswerType
 
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField] QuestionColorGroup questionColorGroup; 
     [SerializeField] GuessColorGroup guessColorGroup;
     [SerializeField] PickColorGroup pickColorGroup;
+
+    [SerializeField] BlockColorType pickingColor = BlockColorType.None;
+
+    protected override void InitAfterAwake()
+    {
+        
+    }
 
     void Start() 
     {
@@ -47,10 +54,10 @@ public class GameManager : MonoBehaviour
         questionColorGroup.CreateQuestionBlock();
         pickColorGroup.CreateAllPickColorBlock();
 
-        guessColorGroup.CreateAllColorGroup();
+        guessColorGroup.CreateGuessColorGroup();
     }
 
-    Color GetBloackColor(BlockColorType _color)
+    public Color GetBloackColor(BlockColorType _color)
     {
         switch(_color)
         {
@@ -63,17 +70,17 @@ public class GameManager : MonoBehaviour
             case BlockColorType.Blue:
                 return Color.blue;
             case BlockColorType.Orange:
-                return new Color(0,0,0);
+                return new Color(1,0.5f,0);
             case BlockColorType.Magenta:
                 return Color.magenta;
-            case BlockColorType.Pink:
-                return new Color(0,0,0);
+            case BlockColorType.Green:
+                return Color.green;
             default:
                 return Color.white;
         }
     }   
 
-    Color GetAnswerColor(AnswerType answer)
+    public Color GetAnswerColor(AnswerType answer)
     {
         switch(answer)
         {
@@ -88,5 +95,15 @@ public class GameManager : MonoBehaviour
             default:
                 return Color.white;
         }
+    }
+
+    public void SetPickingColor(BlockColorType color)
+    {
+        pickingColor = color;
+    }
+
+    public Color GetPickingColor()
+    {
+        return GetBloackColor(pickingColor);
     }
 }

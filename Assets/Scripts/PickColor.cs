@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PickColor : BlockColor,IDragHandler, IDropHandler, IBeginDragHandler
+public class PickColor : BlockColor, IDragHandler, IDropHandler, IBeginDragHandler
 {
+    
     Vector2 originPosition;
 
     public void SetOriginPosition()
     {
         originPosition = transform.position;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        SetOriginPosition();
+        GameManager.Instance.SetPickingColor(color);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -20,10 +27,14 @@ public class PickColor : BlockColor,IDragHandler, IDropHandler, IBeginDragHandle
     public void OnDrop(PointerEventData eventData)
     {
         transform.position = originPosition;
+        GameManager.Instance.SetPickingColor(BlockColorType.None);
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    void OnTriggerStay2D(Collider2D other) 
     {
-        SetOriginPosition();
+        if(other.GetComponent<GuessBlock>() != null)
+        {
+            
+        }
     }
 }

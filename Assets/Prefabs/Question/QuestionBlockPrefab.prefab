@@ -110,5 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0580375125132d34b95d28b6109b00c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockColorImage: {fileID: 7707054097162509540}
   color: 0
   answer: 3

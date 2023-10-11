@@ -18,7 +18,7 @@ public class GuessColorGroup : MonoBehaviour
         }
     }
 
-    void CreateGuessColorGroup()
+    public void CreateGuessColorGroup()
     {
         ColorGroup newColorGroup = Instantiate(colorGroupPrefab,colorGroupParent);
         colorGroupList.Add(newColorGroup);

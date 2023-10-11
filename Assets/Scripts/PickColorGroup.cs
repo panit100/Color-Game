@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickColorGroup : ColorGroup
 {
@@ -14,6 +15,9 @@ public class PickColorGroup : ColorGroup
             if(color != "None")
                 CreatePickColorBlock((BlockColorType)Enum.Parse(typeof(BlockColorType),color));
         }
+
+        
+        StartCoroutine(ToogleIgnoreLayout(true));
     }
 
     void CreatePickColorBlock(BlockColorType color)
@@ -21,5 +25,15 @@ public class PickColorGroup : ColorGroup
         PickColor pickColorBlock = Instantiate(pickColorBlockPrefab,this.transform) as PickColor;
         pickColorBlock.SetBlockColor(color);
         blockColorList.Add(pickColorBlock);
+    }
+
+    IEnumerator ToogleIgnoreLayout(bool toggle)
+    {
+        yield return new WaitForEndOfFrame();
+
+        foreach(var n in blockColorList)
+        {
+            n.GetComponent<LayoutElement>().ignoreLayout = toggle;
+        }
     }
 }
